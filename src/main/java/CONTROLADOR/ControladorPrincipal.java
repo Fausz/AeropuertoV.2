@@ -2,16 +2,15 @@ package CONTROLADOR;
 
 import DAO.DAOException;
 import SERVICIO.ServicioVuelos;
-import VISTAS.VistasVuelos;
-import VISTAS.VistasPrincipal;
+import VISTAS.VistaPrincipal;
 
-public class ControladorAeropuerto {
+public class ControladorPrincipal {
 
     //Instanciamos las clases de vistas a null para poder usarlas con esta clase pero en el constructor le damos la instanciacion de la misma
     //private VistaVuelos vv = null;
     private static boolean modo_depuracion = true;
 
-    public ControladorAeropuerto() {
+    public ControladorPrincipal() {
         /**
          * Metodo constructor que creará la instancia a la clase vuelos para tener acceso a ella
          */
@@ -22,7 +21,7 @@ public class ControladorAeropuerto {
         /**
          * Metodo que selecciona el tipo de almacenamiento que se usará, tras ello ejecutará el menú de la aplicacion con acceso a ese almacenamiento
          */
-        int sistemaAl = VistasPrincipal.getVistas().elegirSistemaAlmacenamiento();
+        int sistemaAl = VistaPrincipal.getVistas().elegirSistemaAlmacenamiento();
         if (sistemaAl == 0) {
             //salimos de la aplicacion
             return;
@@ -39,7 +38,7 @@ public class ControladorAeropuerto {
                 this.iniciar_menu_principal();
 
             } catch (DAOException e) {
-                VistasPrincipal.getVistas().mostrarError("Error al iniciar sistema de almacenamiento \n" + e.getMessage());
+                VistaPrincipal.getVistas().mostrarError("Error al iniciar sistema de almacenamiento \n" + e.getMessage());
                 if (modo_depuracion) {
                     //esto de aquí abajo solo para depuración
                     e.printStackTrace();
@@ -54,7 +53,7 @@ public class ControladorAeropuerto {
         boolean salir = false;
         do {
             //Ejecuto el menu principal y obtengo la opciona  ejecutar
-            int opcion = VistasPrincipal.getVistas().mostrarMenuPrincipal();
+            int opcion = VistaPrincipal.getVistas().mostrarMenuPrincipal();
             switch (opcion) {
                 case 0:
                     System.out.println("Fin del Programa.");
@@ -62,6 +61,7 @@ public class ControladorAeropuerto {
                     break;
                 case 1:
                     System.out.println("Gestionar Vuelos");
+                    ControladorVuelos.getControladorVuelos().menuControladorVuelos();
                     break;
                 case 2:
                     System.out.println("Gestionar Reservas");
@@ -72,4 +72,5 @@ public class ControladorAeropuerto {
             }
         }while(!salir);
     }
+
 }

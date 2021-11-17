@@ -1,11 +1,11 @@
 package VISTAS;
 
-import CONTROLADOR.ControladorAeropuerto;
+import CONTROLADOR.ControladorPrincipal;
 
 public class Main {
     public static void main(String[] args) {
         //Creamos el objeto controlador para poder gestionar la aplicacion desde ahi
-        ControladorAeropuerto ca= new ControladorAeropuerto();
+        ControladorPrincipal ca= new ControladorPrincipal();
         ca.iniciar_aplicacion();
     }
 }

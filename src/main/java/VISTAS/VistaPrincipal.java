@@ -2,15 +2,15 @@ package VISTAS;
 
 import java.util.Scanner;
 
-public class VistasPrincipal {
+public class VistaPrincipal {
     static Scanner sc = new Scanner(System.in);
-    private VistasPrincipal(){
+    private VistaPrincipal(){
 
     }
-    private static VistasPrincipal vistasPrincipal;
-    public static VistasPrincipal getVistas(){
+    private static VistaPrincipal vistasPrincipal;
+    public static VistaPrincipal getVistas(){
         if (vistasPrincipal == null) {
-            vistasPrincipal = new VistasPrincipal();
+            vistasPrincipal = new VistaPrincipal();
         }
         return vistasPrincipal;
     }
@@ -22,7 +22,7 @@ public class VistasPrincipal {
             System.out.println("1. Gestionar Vuelos");
             System.out.println("2. Gestionar reservas");
             System.out.println("3. Informes");
-            System.out.println("0.Salir");
+            System.out.println("0. Salir");
             String entrada = sc.nextLine();
             if (!esEntero(entrada)) {
                 opcion = -1;
@@ -42,14 +42,14 @@ public class VistasPrincipal {
         int opcion = -1; //opcio -1 indica opcion incorrecta
         while (opcion == -1) {
             System.out.println("Introduzca El tipo de sistema de almacenamiento");
-            System.out.println("1.Archivo de texto");
-            System.out.println("2.Archivo Binario");
-            System.out.println("3.Archivo XML usando DOM");
-            System.out.println("4.Archivo XML usando SAX");
-            System.out.println("5.Base de datos relacional usando JDBC");
-            System.out.println("6.Base de datos relacional usando Hibernate");
-            System.out.println("7.Base de datos documental con MongoDB");
-            System.out.println("0.Salir");
+            System.out.println("1. Archivo de texto");
+            System.out.println("2. Archivo Binario");
+            System.out.println("3. Archivo XML usando DOM");
+            System.out.println("4. Archivo XML usando SAX");
+            System.out.println("5. Base de datos relacional usando JDBC");
+            System.out.println("6. Base de datos relacional usando Hibernate");
+            System.out.println("7. Base de datos documental con MongoDB");
+            System.out.println("0. Salir");
 
             String entrada = sc.nextLine();
 
