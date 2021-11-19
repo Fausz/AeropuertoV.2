@@ -48,7 +48,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
         Vuelo vueloAEliminar = this.obtenerVuelo(codigo);
         //elimino el vuelo de la lista
         vuelos.remove(vueloAEliminar);
-        //vuelos.remove(this.obtenerVuelo(codigo));
+
         //inserto la lista en la BD
         this.guardarVuelosTxt(vuelos);
     }
