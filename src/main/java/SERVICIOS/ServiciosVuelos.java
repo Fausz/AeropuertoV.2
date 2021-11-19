@@ -81,9 +81,9 @@ public class ServiciosVuelos {
     }
     public void eliminarVuelo(String codigo) throws DAOException, ServiciosException {
         //inicializamos transaccion
-        /*if(dao instanceof BaseDeDatos){
+        if(dao instanceof BaseDeDatos){
             ((BaseDeDatos) dao).iniciarTransaccion();
-        }*/
+        }
         //si hay vuelo saldrá del metodo con el, aun que no se guarde es una devolucion positiva, si no hay volverá con una excepcion
         this.obtenerVuelo(codigo);
 
@@ -91,9 +91,9 @@ public class ServiciosVuelos {
         dao.eliminarVuelo(codigo);
 
         //finalizamos transaccion
-        /*if(dao instanceof BaseDeDatos){
+        if(dao instanceof BaseDeDatos){
             ((BaseDeDatos) dao).finalizarTransaccion();
-        }*/
+        }
     }
     public Vuelo obtenerVuelo(String codigo) throws ServiciosException, DAOException {
         List<Vuelo>vuelos = dao.obtenerVuelos();

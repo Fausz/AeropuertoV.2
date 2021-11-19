@@ -1,6 +1,7 @@
 package CLASES;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Vuelo {
 
@@ -109,5 +110,34 @@ public class Vuelo {
                 ", terminal=" + terminal +
                 ", puerta=" + puerta +
                 '}';
+    }
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.codigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Vuelo other = (Vuelo) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return false;
+        }
+        return true;
+    }
+
+
+    public int compareTo(Vuelo v) {
+        return this.codigo.compareTo(v.codigo);
     }
 }
