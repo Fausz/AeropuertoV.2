@@ -6,15 +6,18 @@ public class Vuelo {
 
     private String codigo;
     private String origen;
+    private String destino;
     private double precioPersona;
     private Date fechaVuelo;
     private int plazasDisponibles;
     private int terminal;
     private int puerta;
 
-    public Vuelo(String codigo, String origen, double precioPersona, Date fechaVuelo, int plazasDisponibles, int terminal, int puerta) {
+
+        public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles, int terminal, int puerta) {
         this.codigo = codigo;
         this.origen = origen;
+        this.destino = destino;
         this.precioPersona = precioPersona;
         this.fechaVuelo = fechaVuelo;
         this.plazasDisponibles = plazasDisponibles;
@@ -23,6 +26,11 @@ public class Vuelo {
     }
 
     public Vuelo() {
+    }
+
+    //Metodo que se usa para obtener  el vuelo de la BD
+    public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles) {
+        this(codigo,origen,destino,precioPersona,fechaVuelo,plazasDisponibles,0,0);
     }
 
     public String getCodigo() {
@@ -39,6 +47,14 @@ public class Vuelo {
 
     public void setOrigen(String origen) {
         this.origen = origen;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
     }
 
     public double getPrecioPersona() {
@@ -86,6 +102,7 @@ public class Vuelo {
         return "Vuelo{" +
                 "codigo='" + codigo + '\'' +
                 ", origen='" + origen + '\'' +
+                ", destino='" + destino + '\'' +
                 ", precioPersona=" + precioPersona +
                 ", fechaVuelo=" + fechaVuelo +
                 ", plazasDisponibles=" + plazasDisponibles +

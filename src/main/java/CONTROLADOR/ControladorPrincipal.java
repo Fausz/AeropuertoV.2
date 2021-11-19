@@ -1,8 +1,9 @@
 package CONTROLADOR;
 
 import DAO.DAOException;
-import SERVICIO.ServicioVuelos;
+import SERVICIOS.ServiciosVuelos;
 import VISTAS.VistaPrincipal;
+import VISTAS.VistaVuelos;
 
 public class ControladorPrincipal {
 
@@ -33,7 +34,7 @@ public class ControladorPrincipal {
             //hecho así
             try {
                 //En servicio se guardará el tipo de almacenamiento que se elija, para instanciar la clase via singleton
-                ServicioVuelos.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
+                ServiciosVuelos.getServicio().elegirSistemaAlmacenamiento(sistemaAl);
                 //tras haber guardado el tipo de almacenamiento se ejecuta el menu principal
                 this.iniciar_menu_principal();
 
@@ -57,8 +58,12 @@ public class ControladorPrincipal {
             switch (opcion) {
                 case 0:
                     System.out.println("Fin del Programa.");
-                    salir=true;
-                    break;
+                    try {
+                        ServiciosVuelos.getServicio().finalizar();
+                    } catch (DAOException dao) {
+                        VistaVuelos.mostrarError("Ha habido un error al finalizar la conexion " + dao.getMessage());
+                    }
+                    return;
                 case 1:
                     System.out.println("Gestionar Vuelos");
                     ControladorVuelos.getControladorVuelos().menuControladorVuelos();
@@ -70,7 +75,7 @@ public class ControladorPrincipal {
                     System.out.println("Gestionar Informes");
                     break;
             }
-        }while(!salir);
+        }while(true);
     }
 
 }
