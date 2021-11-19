@@ -70,7 +70,6 @@ public class VuelosTxtDAO implements IVuelosDAO {
             throw new DAOException(
                     "Ha habido un problema al guardar los vuelos en el archivo de texto:", e);
         }
-
     }
 
     @Override
