@@ -45,13 +45,10 @@ public class ControladorPrincipal {
                     e.printStackTrace();
                 }
             }
-
         }
-
     }
 
     private void iniciar_menu_principal(){
-        boolean salir = false;
         do {
             //Ejecuto el menu principal y obtengo la opciona  ejecutar
             int opcion = VistaPrincipal.getVistas().mostrarMenuPrincipal();

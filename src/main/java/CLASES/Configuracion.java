@@ -19,47 +19,53 @@ public class Configuracion {
         }
     }
     /*
-GastosCancelacionAntesDeUnMes=10%
-GastosCancelacionAntesDe15Dias=50% 
-CosteMaleta=50
-CosteSilleta=40
-CosteNinyoSolo=100 
-DescuentoNinyo=10%
-DescuentoResidenteIsla=40%
-DescuentoReservaConAnterioridad=20% */
+    GastosCancelacionAntesDeUnMes=10%
+    GastosCancelacionAntesDe15Dias=50%
+    CosteMaleta=50
+    CosteSilleta=40
+    CosteNinyoSolo=100
+    DescuentoNinyo=10%
+    DescuentoResidenteIsla=40%
+    DescuentoReservaConAnterioridad=20% */
     
     public String getTxtVuelos(){
         return propiedades.getProperty("txtVuelos");
     }
-    /*public String getRafVuelos(){
-        return propiedades.getProperty("rafVuelo");
-    }
-    public String getRafVuelosReferencias() {return propiedades.getProperty("rafVueloReferencias");}
-    
+    /*
     public String getTxtReservas(){
         return propiedades.getProperty("txtReservas");
     }
-    public String getRafReservas(){
-        return propiedades.getProperty("rafReservas");
-    }
-    
+
     public String getTxtPasajeros(){
         return propiedades.getProperty("txtPasajeros");
-    }
-    public String getRafPasajeros(){
-        return propiedades.getProperty("rafPasajeros");
     }
 
     public String getTxtTarjetasEmbarque() {
         return propiedades.getProperty("txtTarjetasEmbarque");
     }
-    public String getRafTarjetasEmbarque() {
-        return propiedades.getProperty("rafTarjetasEmbarque");
-    }
 
     public String getTxtOrdenesPago() {
         return propiedades.getProperty("txtOrdenesPago");
     }
+    public String getRafVuelos(){
+        return propiedades.getProperty("rafVuelo");
+    }
+    public String getRafVuelosReferencias() {return propiedades.getProperty("rafVueloReferencias");}
+    
+
+    public String getRafReservas(){
+        return propiedades.getProperty("rafReservas");
+    }
+
+    public String getRafPasajeros(){
+        return propiedades.getProperty("rafPasajeros");
+    }
+
+    public String getRafTarjetasEmbarque() {
+        return propiedades.getProperty("rafTarjetasEmbarque");
+    }
+
+
     public String getRafOrdenesPago() {
         return propiedades.getProperty("rafOrdenesPago");
     }

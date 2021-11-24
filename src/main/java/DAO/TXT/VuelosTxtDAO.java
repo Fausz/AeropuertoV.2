@@ -18,6 +18,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
 
     //Variable con la ruta del archivo
     private String archivoVuelo = null;
+    private List<Vuelo> vuelos = null;
 
     public VuelosTxtDAO() throws DAOException{
         //Creo el objeto configuración que contendrá los metodos con acceso a los respectivos parametros de acceso a los archivos
@@ -37,17 +38,27 @@ public class VuelosTxtDAO implements IVuelosDAO {
     public void modificarVuelo(Vuelo v) throws DAOException {
 
     }
-
+    /*
     @Override
     public void eliminarVuelo(String codigo) throws DAOException {
         //obtengo la lista con todos
-
         List<Vuelo>vuelos = this.sacarVuelosTxt();
-        //lo obtengo via codigo
 
+        //lo obtengo via codigo
         Vuelo vueloAEliminar = this.obtenerVuelo(codigo);
+
         //elimino el vuelo de la lista
         vuelos.remove(vueloAEliminar);
+
+        //inserto la lista en la BD
+        this.guardarVuelosTxt(vuelos);
+    }*/
+    @Override
+    public void eliminarVuelo(String codigo) throws DAOException {
+
+        this.vuelos = this.sacarVuelosTxt();
+
+        this.vuelos.remove(this.obtenerVuelo(codigo));
 
         //inserto la lista en la BD
         this.guardarVuelosTxt(vuelos);
@@ -72,6 +83,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
         }
     }
 
+    /*
     @Override
     public Vuelo obtenerVuelo(String codigo) throws DAOException {
         List<Vuelo>vuelos = sacarVuelosTxt();
@@ -86,6 +98,21 @@ public class VuelosTxtDAO implements IVuelosDAO {
                 if(v.equals(vuelo)){
                     return v;
                 }
+            }
+        }
+        //si no lo contenia devuelve null como que no está
+        return null;
+    }*/
+    @Override
+    public Vuelo obtenerVuelo(String codigo) throws DAOException {
+        if(vuelos == null)
+            this.vuelos = sacarVuelosTxt();
+
+        //la recorro
+        for(Vuelo v : this.vuelos){
+            //cuando el vuelo coincida con el de la lista, se devuelve
+            if(v.getCodigo().equals(codigo)){
+                return v;
             }
         }
         //si no lo contenia devuelve null como que no está

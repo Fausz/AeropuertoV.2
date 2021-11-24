@@ -15,7 +15,7 @@ public class Vuelo {
     private int puerta;
 
 
-        public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles, int terminal, int puerta) {
+    public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles, int terminal, int puerta) {
         this.codigo = codigo;
         this.origen = origen;
         this.destino = destino;

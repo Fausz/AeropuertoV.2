@@ -2,7 +2,9 @@ package VISTAS;
 
 import CLASES.Vuelo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,6 +44,149 @@ public class VistaVuelos {
         return opcion;
     }
 
+    public Vuelo crearVuelo(){
+
+        String codigo = this.crearCodigoVuelo();
+        if(codigo == null){
+            return null;
+        }
+
+        String origen = this.crearOrigenVuelo();
+        if(origen == null){
+            return null;
+        }
+
+        String destino = this.crearDestinoVuelo();
+        if(destino == null){
+            return null;
+        }
+
+        Double precio = this.crearPrecioPersonaVuelo();
+        if(precio == null){
+            return null;
+        }
+
+        Date fecha = this.crearFechaVuelo();
+        if(fecha == null){
+            return null;
+        }
+
+        //Plazas disponibles del vuelo
+        Integer plazasDisponibles = this.crearPlazasDisponibles();
+        if (plazasDisponibles == null) {
+            return null;
+        }
+
+        return new Vuelo(codigo,origen,destino,precio,fecha,plazasDisponibles);
+
+    }
+
+    private String crearCodigoVuelo(){
+        String respuesta;
+        do{
+            System.out.println("Introduce el codigo de vuelo (0 para cancelar): ");
+            respuesta = sc.nextLine();
+            if(respuesta.equals("0")){
+                return null;
+            }
+            if(respuesta.length()!=8){
+                System.err.println("El codigo tiene que tener 8 caracteres.");
+            }
+        }while(respuesta.length()!=8);
+        return respuesta;
+    }
+
+    private String crearOrigenVuelo(){
+        String respuesta;
+        do{
+            System.out.println("Introduce el origen del vuelo (0 para cancelar): ");
+            respuesta = sc.nextLine().toUpperCase();
+            if(respuesta.equals("0")){
+                return null;
+            }
+            if(respuesta.length()!=3){
+                System.err.println("El origen tiene que tener 3 caracteres.");
+            }
+        }while(respuesta.length()!=3);
+        return respuesta;
+    }
+
+    private String crearDestinoVuelo(){
+        String respuesta;
+        do{
+            System.out.println("Introduce el destino del vuelo (0 para cancelar): ");
+            respuesta = sc.nextLine().toUpperCase();
+            if(respuesta.equals("0")){
+                return null;
+            }
+            if(respuesta.length()!=3){
+                System.err.println("El destino tiene que tener 3 caracteres.");
+            }
+        }while(respuesta.length()!=3);
+        return respuesta;
+    }
+
+    private Double crearPrecioPersonaVuelo(){
+        String entrada;
+        double precio;
+        do{
+            System.out.println("Introeduce el precio del vuelo (0 para cancelar): ");
+            entrada = sc.nextLine();
+            if(entrada.equals("0")){
+                return null;
+            }
+            if(!esDecimal(entrada)){
+                System.err.println("El precio ha de ser un numero decimal.");
+            }else{
+                precio=Double.parseDouble(entrada);
+
+                if(precio <=0){
+                    System.err.println("No hay vuelos gratis o negativos.");
+                }else{
+                    return precio;
+                }
+            }
+        }while (true);
+    }
+
+    private Date crearFechaVuelo(){
+        String respuesta;
+        Date fecha;
+        do{
+            System.out.println("Introduce una fecha en formato dd/mm/yyyy (0 para cancelar): ");
+            respuesta = sc.nextLine();
+            if(respuesta.equals("0")){
+                return null;
+            }
+            fecha = obtenerFecha(respuesta);
+            if (fecha == null) {
+                System.err.println("El formato de fecha no es valido");
+            }
+        }while(fecha == null);
+        return fecha;
+    }
+    private Integer crearPlazasDisponibles(){
+    String respuesta;
+    Integer numEntero = null;
+        do {
+        System.out.println("Introduzca el número de plazas disponibles.");
+        respuesta = sc.nextLine();
+        if (!esEntero(respuesta)) {
+            System.err.println("El número de plazas debe ser un número");
+        } else {
+            numEntero = Integer.parseInt(respuesta);
+            if (numEntero == 0) {
+                //salimos
+                return null;
+            } else if (numEntero < 0) {
+                System.err.println("El número de plazas ha de ser positivo");
+            } else {
+                return numEntero;
+            }
+        }
+    } while (true);
+}
+
     public String obtenerCodigoVuelo(){
         String codigo;
         System.out.println("Inserta el codigo del vuelo (0 para salir): ");
@@ -64,11 +209,31 @@ public class VistaVuelos {
 
     }
 
+    private static Date obtenerFecha(String cadena) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date fechaNac = null;
+        try {
+            fechaNac = sdf.parse(cadena);
+            return fechaNac;
+        } catch (ParseException ex) {
+            // si no es fecha devolvemos un null
+            return null;
+        }
+    }
 
 
     private static boolean esEntero(String cadena) {
         try {
             Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    public static boolean esDecimal(String numero) {
+        try {
+            Double.parseDouble(numero);
             return true;
         } catch (NumberFormatException nfe) {
             return false;

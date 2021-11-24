@@ -1,5 +1,6 @@
 package CONTROLADOR;
 
+import CLASES.Vuelo;
 import DAO.DAOException;
 import SERVICIOS.ServiciosException;
 import SERVICIOS.ServiciosVuelos;
@@ -16,7 +17,6 @@ public class ControladorVuelos {
     }
 
     public void menuControladorVuelos(){
-        boolean salir = false;
         do {
             //Ejecuto el menu principal y obtengo la opciona  ejecutar
             int opcion = VistaVuelos.getVistas().mostrarMenuPrincipalVuelos();
@@ -26,7 +26,7 @@ public class ControladorVuelos {
                     return;
                 case 1:
                     System.out.println("Crear Vuelo");
-                    //this.crearVuelo();
+                    this.crearVuelo();
                     break;
                 case 2:
                     this.mostrarVuelos();
@@ -47,6 +47,11 @@ public class ControladorVuelos {
         }while(true);
     }
 
+    public void crearVuelo(){
+        Vuelo v = VistaVuelos.getVistas().crearVuelo();
+
+    }
+
     public void eliminarVuelo(){
         try{
             VistaVuelos.mostrarVuelos(ServiciosVuelos.getServicio().obtenerVuelos());
@@ -59,10 +64,11 @@ public class ControladorVuelos {
         }catch (DAOException dao){
             VistaVuelos.mostrarError("Error al intentar obtener los datos en " + dao);
         }catch (ServiciosException se) {
-        //Si ha habido un error desde el Servicio muestro el error del Servicio
-        VistaVuelos.mostrarError("Error al eliminar un vuelo: " + se.getMessage());
+            //Si ha habido un error desde el Servicio muestro el error del Servicio
+            VistaVuelos.mostrarError("Error al eliminar un vuelo: " + se.getMessage());
         }
     }
+
     public void mostrarVuelos() {
         /**
          * Método que nos mostrará los vuelos obtenidos del Servicio desde la vista.
