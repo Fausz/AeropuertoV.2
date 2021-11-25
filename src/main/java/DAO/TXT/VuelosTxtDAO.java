@@ -5,10 +5,7 @@ import CLASES.Vuelo;
 import DAO.DAOException;
 import DAO.IVuelosDAO;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +27,16 @@ public class VuelosTxtDAO implements IVuelosDAO {
 
     //Implementamos los metodos de la interfaz, desde aqui tendremos acceso a la BD
     @Override
-    public void crearVuelo(Vuelo vuelo) throws DAOException {
-
+    public void crearVuelo(Vuelo v) throws DAOException {
+        try(PrintWriter pw = new PrintWriter(new FileWriter(archivoVuelo,true))){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String fechaStr = sdf.format(v.getFechaVuelo());
+            String cadena = v.getCodigo() + "#" + v.getOrigen() + "#" + v.getDestino() + "#" + v.getPrecioPersona()
+                    + "#" + fechaStr + "#" + v.getPlazasDisponibles() + "#" +v.getPuerta()  + "#" + v.getTerminal();
+            pw.println(cadena);
+        } catch (Exception e) {
+            throw new DAOException("Ha habido un problema al guardar los vuelos en el archivo de texto:", e);
+        }
     }
 
     @Override

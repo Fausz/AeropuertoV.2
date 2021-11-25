@@ -67,6 +67,22 @@ public class ServiciosVuelos {
         }*/
 
     }
+    public void crearVuelo(Vuelo v) throws DAOException, ServiciosException{
+
+        if (dao.obtenerVuelo(v.getCodigo()) != null) {
+            throw new ServiciosException("El vuelo ya existe.");
+        }
+
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+
+        dao.crearVuelo(v);
+
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+    }
 
     public List<Vuelo> obtenerVuelos() throws DAOException, ServiciosException {
         /**
@@ -79,6 +95,7 @@ public class ServiciosVuelos {
         }
         return vuelos;
     }
+
     public void eliminarVuelo(String codigo) throws DAOException, ServiciosException {
         //inicializamos transaccion
         if(dao instanceof BaseDeDatos){
@@ -95,6 +112,7 @@ public class ServiciosVuelos {
             ((BaseDeDatos) dao).finalizarTransaccion();
         }
     }
+
     public Vuelo obtenerVuelo(String codigo) throws ServiciosException, DAOException {
         List<Vuelo>vuelos = dao.obtenerVuelos();
         for(Vuelo v : vuelos){
@@ -104,6 +122,7 @@ public class ServiciosVuelos {
         }
         throw new ServiciosException("No hay ningun vuelo con el codigo especificado.");
     }
+
     public void finalizar() throws DAOException{
         if(dao instanceof BaseDeDatos){
             ((BaseDeDatos) dao).finalizarConexion();

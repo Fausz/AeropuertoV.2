@@ -49,7 +49,16 @@ public class ControladorVuelos {
 
     public void crearVuelo(){
         Vuelo v = VistaVuelos.getVistas().crearVuelo();
+        try{
+            if(v != null){
+                ServiciosVuelos.getServicio().crearVuelo(v);
+            }
 
+        }catch (ServiciosException se){
+            VistaVuelos.mostrarError("Ha habido un problema al insertar el vuelo: " + se.getMessage());
+        }catch (DAOException DAO){
+            VistaVuelos.mostrarError("Ha habido un error al obtener los datos: " + DAO.getMessage());
+        }
     }
 
     public void eliminarVuelo(){
