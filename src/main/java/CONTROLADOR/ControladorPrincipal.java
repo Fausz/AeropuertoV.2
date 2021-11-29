@@ -1,6 +1,7 @@
 package CONTROLADOR;
 
 import DAO.DAOException;
+import SERVICIOS.ServiciosException;
 import SERVICIOS.ServiciosVuelos;
 import VISTAS.VistaPrincipal;
 import VISTAS.VistaVuelos;
@@ -38,7 +39,7 @@ public class ControladorPrincipal {
                 //tras haber guardado el tipo de almacenamiento se ejecuta el menu principal
                 this.iniciar_menu_principal();
 
-            } catch (DAOException e) {
+            } catch (DAOException | ServiciosException e) {
                 VistaPrincipal.getVistas().mostrarError("Error al iniciar sistema de almacenamiento \n" + e.getMessage());
                 if (modo_depuracion) {
                     //esto de aquí abajo solo para depuración
@@ -48,7 +49,7 @@ public class ControladorPrincipal {
         }
     }
 
-    private void iniciar_menu_principal(){
+    private void iniciar_menu_principal() throws DAOException, ServiciosException {
         do {
             //Ejecuto el menu principal y obtengo la opciona  ejecutar
             int opcion = VistaPrincipal.getVistas().mostrarMenuPrincipal();

@@ -46,33 +46,33 @@ public class VistaVuelos {
 
     public Vuelo crearVuelo(){
 
-        String codigo = this.crearCodigoVuelo();
+        String codigo = this.pedirCodigoVuelo();
         if(codigo == null){
             return null;
         }
 
-        String origen = this.crearOrigenVuelo();
+        String origen = this.pedirOrigenVuelo();
         if(origen == null){
             return null;
         }
 
-        String destino = this.crearDestinoVuelo();
+        String destino = this.pedirDestinoVuelo();
         if(destino == null){
             return null;
         }
 
-        Double precio = this.crearPrecioPersonaVuelo();
+        Double precio = this.pedirPrecioPersonaVuelo();
         if(precio == null){
             return null;
         }
 
-        Date fecha = this.crearFechaVuelo();
+        Date fecha = this.pedirFechaVuelo();
         if(fecha == null){
             return null;
         }
 
         //Plazas disponibles del vuelo
-        Integer plazasDisponibles = this.crearPlazasDisponibles();
+        Integer plazasDisponibles = this.pedirPlazasDisponibles();
         if (plazasDisponibles == null) {
             return null;
         }
@@ -81,7 +81,34 @@ public class VistaVuelos {
 
     }
 
-    private String crearCodigoVuelo(){
+    public Integer menuModificarVuelo(){
+        String entrada;
+        int opcion;
+        do{
+            System.out.println("\n-----Menu Modificar Vuelo-----");
+            System.out.println("1 - Precio por persona");
+            System.out.println("2 - Fecha");
+            System.out.println("3 - Plazas disponibles");
+            System.out.println("4 - Terminal");
+            System.out.println("5 - Puerta");
+            System.out.println("0 - Salir");
+            entrada = sc.nextLine();
+            if(entrada.equals("0")){
+                return null;
+            }
+            if(!esEntero(entrada)){
+                System.err.println("Introduce una opcion valida.");
+            }else{
+                opcion=Integer.parseInt(entrada);
+                if(opcion<=5 || opcion>=1) {
+                    return opcion;
+                }
+            }
+        }while(true);
+
+    }
+
+    private String pedirCodigoVuelo(){
         String respuesta;
         do{
             System.out.println("Introduce el codigo de vuelo (0 para cancelar): ");
@@ -96,7 +123,7 @@ public class VistaVuelos {
         return respuesta;
     }
 
-    private String crearOrigenVuelo(){
+    private String pedirOrigenVuelo(){
         String respuesta;
         do{
             System.out.println("Introduce el origen del vuelo (0 para cancelar): ");
@@ -111,7 +138,7 @@ public class VistaVuelos {
         return respuesta;
     }
 
-    private String crearDestinoVuelo(){
+    private String pedirDestinoVuelo(){
         String respuesta;
         do{
             System.out.println("Introduce el destino del vuelo (0 para cancelar): ");
@@ -126,7 +153,7 @@ public class VistaVuelos {
         return respuesta;
     }
 
-    private Double crearPrecioPersonaVuelo(){
+    public Double pedirPrecioPersonaVuelo(){
         String entrada;
         double precio;
         do{
@@ -149,7 +176,7 @@ public class VistaVuelos {
         }while (true);
     }
 
-    private Date crearFechaVuelo(){
+    private Date pedirFechaVuelo(){
         String respuesta;
         Date fecha;
         do{
@@ -165,7 +192,7 @@ public class VistaVuelos {
         }while(fecha == null);
         return fecha;
     }
-    private Integer crearPlazasDisponibles(){
+    private Integer pedirPlazasDisponibles(){
     String respuesta;
     Integer numEntero = null;
         do {

@@ -41,7 +41,8 @@ public class VuelosTxtDAO implements IVuelosDAO {
 
     @Override
     public void modificarVuelo(Vuelo v) throws DAOException {
-
+        this.eliminarVuelo(v.getCodigo());
+        this.crearVuelo(v);
     }
     /*
     @Override

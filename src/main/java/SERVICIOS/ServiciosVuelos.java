@@ -84,6 +84,19 @@ public class ServiciosVuelos {
         }
     }
 
+    public void modificarPrecioVuelo(String codigo, double precio) throws DAOException, ServiciosException {
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+        Vuelo v = this.obtenerVuelo(codigo);
+        v.setPrecioPersona(precio);
+        dao.modificarVuelo(v);
+
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+    }
+
     public List<Vuelo> obtenerVuelos() throws DAOException, ServiciosException {
         /**
          * Método que obtiene los vuelos del dao seleccionado

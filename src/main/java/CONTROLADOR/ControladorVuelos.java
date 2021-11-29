@@ -16,7 +16,7 @@ public class ControladorVuelos {
         return controladorVuelos;
     }
 
-    public void menuControladorVuelos(){
+    public void menuControladorVuelos() throws DAOException, ServiciosException {
         do {
             //Ejecuto el menu principal y obtengo la opciona  ejecutar
             int opcion = VistaVuelos.getVistas().mostrarMenuPrincipalVuelos();
@@ -33,7 +33,7 @@ public class ControladorVuelos {
                     break;
                 case 3:
                     System.out.println("Modificar Vuelo");
-                    //this.modificarVuelo();
+                    this.modificarVuelo();
                     break;
                 case 4:
                     System.out.println("Eliminar Vuelo");
@@ -45,6 +45,44 @@ public class ControladorVuelos {
                     break;
             }
         }while(true);
+    }
+
+    public void modificarVuelo() throws DAOException, ServiciosException {
+        try {
+            VistaVuelos.mostrarVuelos(ServiciosVuelos.getServicio().obtenerVuelos());
+            String codigo = VistaVuelos.getVistas().obtenerCodigoVuelo();
+            if (codigo == null) {
+                return;
+            }
+            Integer opcion;
+            opcion = VistaVuelos.getVistas().menuModificarVuelo();
+            if (opcion != null) {
+                switch (opcion){
+                    case 1:
+                        Double precio = VistaVuelos.getVistas().pedirPrecioPersonaVuelo();
+                        if(precio != null){
+                            ServiciosVuelos.getServicio().modificarPrecioVuelo(codigo, precio);
+                        }
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                }
+            }
+        }catch (DAOException dao) {
+            VistaVuelos.mostrarError("Error al intentar obtener los datos: " + dao.getMessage());
+        } catch (ServiciosException se) {
+            VistaVuelos.mostrarError("Error al modificar un vuelo: " + se.getMessage());
+        }
     }
 
     public void crearVuelo(){
