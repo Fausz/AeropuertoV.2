@@ -123,7 +123,51 @@ public class VistaVuelos {
         return respuesta;
     }
 
-    private String pedirOrigenVuelo(){
+    public Integer pedirTerminal(){
+        String respuesta;
+        Integer numEntero = null;
+        do {
+            System.out.println("Introduzca la terminal (0 para salir): ");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                System.err.println("La terminal debe ser un número");
+            } else {
+                numEntero = Integer.parseInt(respuesta);
+                if (numEntero == 0) {
+                    //salimos
+                    return null;
+                } else if (numEntero < 0) {
+                    System.err.println("El número de plazas ha de ser positivo");
+                } else {
+                    return numEntero;
+                }
+            }
+        } while (true);
+    }
+
+    public Integer pedirPuerta(){
+        String respuesta;
+        Integer numEntero = null;
+        do {
+            System.out.println("Introduzca la puerta de embarque (0 para salir): ");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                System.err.println("La puerta de embarque debe ser un número");
+            } else {
+                numEntero = Integer.parseInt(respuesta);
+                if (numEntero == 0) {
+                    //salimos
+                    return null;
+                } else if (numEntero < 0) {
+                    System.err.println("El número de plazas ha de ser positivo");
+                } else {
+                    return numEntero;
+                }
+            }
+        } while (true);
+    }
+
+    public String pedirOrigenVuelo(){
         String respuesta;
         do{
             System.out.println("Introduce el origen del vuelo (0 para cancelar): ");
@@ -138,7 +182,7 @@ public class VistaVuelos {
         return respuesta;
     }
 
-    private String pedirDestinoVuelo(){
+    public String pedirDestinoVuelo(){
         String respuesta;
         do{
             System.out.println("Introduce el destino del vuelo (0 para cancelar): ");
@@ -176,7 +220,7 @@ public class VistaVuelos {
         }while (true);
     }
 
-    private Date pedirFechaVuelo(){
+    public Date pedirFechaVuelo(){
         String respuesta;
         Date fecha;
         do{
@@ -192,27 +236,28 @@ public class VistaVuelos {
         }while(fecha == null);
         return fecha;
     }
-    private Integer pedirPlazasDisponibles(){
-    String respuesta;
-    Integer numEntero = null;
-        do {
-        System.out.println("Introduzca el número de plazas disponibles.");
-        respuesta = sc.nextLine();
-        if (!esEntero(respuesta)) {
-            System.err.println("El número de plazas debe ser un número");
-        } else {
-            numEntero = Integer.parseInt(respuesta);
-            if (numEntero == 0) {
-                //salimos
-                return null;
-            } else if (numEntero < 0) {
-                System.err.println("El número de plazas ha de ser positivo");
+
+    public Integer pedirPlazasDisponibles(){
+        String respuesta;
+        Integer numEntero = null;
+            do {
+            System.out.println("Introduzca el número de plazas disponibles.");
+            respuesta = sc.nextLine();
+            if (!esEntero(respuesta)) {
+                System.err.println("El número de plazas debe ser un número");
             } else {
-                return numEntero;
+                numEntero = Integer.parseInt(respuesta);
+                if (numEntero == 0) {
+                    //salimos
+                    return null;
+                } else if (numEntero < 0) {
+                    System.err.println("El número de plazas ha de ser positivo");
+                } else {
+                    return numEntero;
+                }
             }
-        }
-    } while (true);
-}
+        } while (true);
+    }
 
     public String obtenerCodigoVuelo(){
         String codigo;
@@ -231,7 +276,7 @@ public class VistaVuelos {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (Vuelo v : vuelos) {
             fechaStr = sdf.format(v.getFechaVuelo());
-            System.out.printf("%-8s  %-8s %-10s %-6.2f   %-10s  %-14d %-11d %-8d \n", v.getCodigo(), v.getOrigen(), v.getDestino(), v.getPrecioPersona(), fechaStr, v.getPlazasDisponibles(), v.getTerminal(), v.getPuerta());
+            System.out.printf("%-8s  %-8s %-10s %-6.2f   %-10s  %-14d %-11d %-8d \n", v.getCodigoVuelo(), v.getOrigen(), v.getDestino(), v.getPrecioPersona(), fechaStr, v.getPlazasDisponibles(), v.getTerminal(), v.getPuerta());
         }
 
     }

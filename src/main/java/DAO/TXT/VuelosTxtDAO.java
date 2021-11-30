@@ -31,7 +31,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
         try(PrintWriter pw = new PrintWriter(new FileWriter(archivoVuelo,true))){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String fechaStr = sdf.format(v.getFechaVuelo());
-            String cadena = v.getCodigo() + "#" + v.getOrigen() + "#" + v.getDestino() + "#" + v.getPrecioPersona()
+            String cadena = v.getCodigoVuelo() + "#" + v.getOrigen() + "#" + v.getDestino() + "#" + v.getPrecioPersona()
                     + "#" + fechaStr + "#" + v.getPlazasDisponibles() + "#" +v.getPuerta()  + "#" + v.getTerminal();
             pw.println(cadena);
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
 
     @Override
     public void modificarVuelo(Vuelo v) throws DAOException {
-        this.eliminarVuelo(v.getCodigo());
+        this.eliminarVuelo(v.getCodigoVuelo());
         this.crearVuelo(v);
     }
     /*
@@ -77,7 +77,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String fechaStr = sdf.format(v.getFechaVuelo());
                 //preparo las cadenas a insertar con # de separacion de campos
-                String cadena = v.getCodigo() + "#" + v.getOrigen() + "#" + v.getDestino() + "#" + v.getPrecioPersona()
+                String cadena = v.getCodigoVuelo() + "#" + v.getOrigen() + "#" + v.getDestino() + "#" + v.getPrecioPersona()
                         + "#" + fechaStr + "#" + v.getPlazasDisponibles() + "#" + v.getPuerta() + "#" + v.getTerminal();
                 //inserto la cadena en la BD
                 pw.println(cadena);
@@ -117,7 +117,7 @@ public class VuelosTxtDAO implements IVuelosDAO {
         //la recorro
         for(Vuelo v : this.vuelos){
             //cuando el vuelo coincida con el de la lista, se devuelve
-            if(v.getCodigo().equals(codigo)){
+            if(v.getCodigoVuelo().equals(codigo)){
                 return v;
             }
         }

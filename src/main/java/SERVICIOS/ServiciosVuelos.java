@@ -6,6 +6,7 @@ import DAO.DAOException;
 import DAO.IVuelosDAO;
 import DAO.TXT.VuelosTxtDAO;
 
+import java.util.Date;
 import java.util.List;
 
 public class ServiciosVuelos {
@@ -69,7 +70,7 @@ public class ServiciosVuelos {
     }
     public void crearVuelo(Vuelo v) throws DAOException, ServiciosException{
 
-        if (dao.obtenerVuelo(v.getCodigo()) != null) {
+        if (dao.obtenerVuelo(v.getCodigoVuelo()) != null) {
             throw new ServiciosException("El vuelo ya existe.");
         }
 
@@ -84,11 +85,62 @@ public class ServiciosVuelos {
         }
     }
 
-    public void modificarPrecioVuelo(String codigo, double precio) throws DAOException, ServiciosException {
+    public void modificarTerminal(String codigoVuelo, int terminal) throws DAOException, ServiciosException {
         if(dao instanceof BaseDeDatos){
             ((BaseDeDatos) dao).iniciarTransaccion();
         }
-        Vuelo v = this.obtenerVuelo(codigo);
+        Vuelo v = this.obtenerVuelo(codigoVuelo);
+        v.setTerminal(terminal);
+        dao.modificarVuelo(v);
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+    }
+
+    public void modificarPuerta(String codigoVuelo, int puerta) throws DAOException, ServiciosException {
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+        Vuelo v = this.obtenerVuelo(codigoVuelo);
+        v.setPuerta(puerta);
+        dao.modificarVuelo(v);
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+    }
+
+    public void modificarPlazasVuelo(String codigoVuelo, int plazas) throws DAOException, ServiciosException {
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+        Vuelo v = this.obtenerVuelo(codigoVuelo);
+        v.setPlazasDisponibles(plazas);
+        dao.modificarVuelo(v);
+
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+
+    }
+
+    public void modificarFechaVuelo(String codigoVuelo, Date fecha) throws DAOException, ServiciosException {
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+        Vuelo v = this.obtenerVuelo(codigoVuelo);
+        v.setFechaVuelo(fecha);
+        dao.modificarVuelo(v);
+
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).finalizarTransaccion();
+        }
+    }
+
+    public void modificarPrecioVuelo(String codigoVuelo, double precio) throws DAOException, ServiciosException {
+        if(dao instanceof BaseDeDatos){
+            ((BaseDeDatos) dao).iniciarTransaccion();
+        }
+        Vuelo v = this.obtenerVuelo(codigoVuelo);
         v.setPrecioPersona(precio);
         dao.modificarVuelo(v);
 
@@ -109,16 +161,16 @@ public class ServiciosVuelos {
         return vuelos;
     }
 
-    public void eliminarVuelo(String codigo) throws DAOException, ServiciosException {
+    public void eliminarVuelo(String codigoVuelo) throws DAOException, ServiciosException {
         //inicializamos transaccion
         if(dao instanceof BaseDeDatos){
             ((BaseDeDatos) dao).iniciarTransaccion();
         }
         //si hay vuelo saldrá del metodo con el, aun que no se guarde es una devolucion positiva, si no hay volverá con una excepcion
-        this.obtenerVuelo(codigo);
+        this.obtenerVuelo(codigoVuelo);
 
-        //se llama al metodo eliminar con el codigo valido
-        dao.eliminarVuelo(codigo);
+        //se llama al metodo eliminar con el codigoVuelo valido
+        dao.eliminarVuelo(codigoVuelo);
 
         //finalizamos transaccion
         if(dao instanceof BaseDeDatos){
@@ -126,10 +178,10 @@ public class ServiciosVuelos {
         }
     }
 
-    public Vuelo obtenerVuelo(String codigo) throws ServiciosException, DAOException {
+    public Vuelo obtenerVuelo(String codigoVuelo) throws ServiciosException, DAOException {
         List<Vuelo>vuelos = dao.obtenerVuelos();
         for(Vuelo v : vuelos){
-            if(v.getCodigo().equals(codigo)){
+            if(v.getCodigoVuelo().equals(codigoVuelo)){
                 return v;
             }
         }

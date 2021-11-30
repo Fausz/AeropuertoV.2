@@ -6,6 +6,8 @@ import SERVICIOS.ServiciosException;
 import SERVICIOS.ServiciosVuelos;
 import VISTAS.VistaVuelos;
 
+import java.util.Date;
+
 public class ControladorVuelos {
     private ControladorVuelos(){}
     private static ControladorVuelos controladorVuelos;
@@ -50,8 +52,8 @@ public class ControladorVuelos {
     public void modificarVuelo() throws DAOException, ServiciosException {
         try {
             VistaVuelos.mostrarVuelos(ServiciosVuelos.getServicio().obtenerVuelos());
-            String codigo = VistaVuelos.getVistas().obtenerCodigoVuelo();
-            if (codigo == null) {
+            String codigoVuelo = VistaVuelos.getVistas().obtenerCodigoVuelo();
+            if (codigoVuelo == null) {
                 return;
             }
             Integer opcion;
@@ -61,20 +63,32 @@ public class ControladorVuelos {
                     case 1:
                         Double precio = VistaVuelos.getVistas().pedirPrecioPersonaVuelo();
                         if(precio != null){
-                            ServiciosVuelos.getServicio().modificarPrecioVuelo(codigo, precio);
+                            ServiciosVuelos.getServicio().modificarPrecioVuelo(codigoVuelo, precio);
                         }
                         break;
                     case 2:
-
+                        Date fecha = VistaVuelos.getVistas().pedirFechaVuelo();
+                        if(fecha!=null){
+                            ServiciosVuelos.getServicio().modificarFechaVuelo(codigoVuelo, fecha);
+                        }
                         break;
                     case 3:
-
+                        Integer plazas = VistaVuelos.getVistas().pedirPlazasDisponibles();
+                        if(plazas!=null){
+                            ServiciosVuelos.getServicio().modificarPlazasVuelo(codigoVuelo, plazas);
+                        }
                         break;
                     case 4:
-
+                        Integer terminal = VistaVuelos.getVistas().pedirTerminal();
+                        if(terminal!=null){
+                            ServiciosVuelos.getServicio().modificarTerminal(codigoVuelo, terminal);
+                        }
                         break;
                     case 5:
-
+                        Integer puerta = VistaVuelos.getVistas().pedirPuerta();
+                        if(puerta!=null){
+                            ServiciosVuelos.getServicio().modificarPuerta(codigoVuelo, puerta);
+                        }
                         break;
                 }
             }
@@ -102,11 +116,11 @@ public class ControladorVuelos {
     public void eliminarVuelo(){
         try{
             VistaVuelos.mostrarVuelos(ServiciosVuelos.getServicio().obtenerVuelos());
-            String codigo = VistaVuelos.getVistas().obtenerCodigoVuelo();
-            if(codigo==null){
+            String codigoVuelo = VistaVuelos.getVistas().obtenerCodigoVuelo();
+            if(codigoVuelo==null){
                 return;
             }
-            ServiciosVuelos.getServicio().eliminarVuelo(codigo);
+            ServiciosVuelos.getServicio().eliminarVuelo(codigoVuelo);
 
         }catch (DAOException dao){
             VistaVuelos.mostrarError("Error al intentar obtener los datos en " + dao);

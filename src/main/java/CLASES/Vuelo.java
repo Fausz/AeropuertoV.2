@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Vuelo {
 
-    private String codigo;
+    private String codigoVuelo;
     private String origen;
     private String destino;
     private double precioPersona;
@@ -16,7 +16,7 @@ public class Vuelo {
 
 
     public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles, int terminal, int puerta) {
-        this.codigo = codigo;
+        this.codigoVuelo = codigo;
         this.origen = origen;
         this.destino = destino;
         this.precioPersona = precioPersona;
@@ -30,16 +30,17 @@ public class Vuelo {
     }
 
     //Metodo que se usa para obtener  el vuelo de la BD
-    public Vuelo(String codigo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles) {
-        this(codigo,origen,destino,precioPersona,fechaVuelo,plazasDisponibles,0,0);
+    public Vuelo(String codigoVuelo, String origen, String destino, double precioPersona, Date fechaVuelo, int plazasDisponibles) {
+        this(codigoVuelo,origen,destino,precioPersona,fechaVuelo,plazasDisponibles,0,0);
     }
 
-    public String getCodigo() {
-        return codigo;
+
+    public String getCodigoVuelo() {
+        return codigoVuelo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigoVuelo(String codigoVuelo) {
+        this.codigoVuelo = codigoVuelo;
     }
 
     public String getOrigen() {
@@ -101,7 +102,7 @@ public class Vuelo {
     @Override
     public String toString() {
         return "Vuelo{" +
-                "codigo='" + codigo + '\'' +
+                "codigo='" + codigoVuelo + '\'' +
                 ", origen='" + origen + '\'' +
                 ", destino='" + destino + '\'' +
                 ", precioPersona=" + precioPersona +
@@ -114,7 +115,7 @@ public class Vuelo {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.codigo);
+        hash = 97 * hash + Objects.hashCode(this.codigoVuelo);
         return hash;
     }
 
@@ -130,7 +131,7 @@ public class Vuelo {
             return false;
         }
         final Vuelo other = (Vuelo) obj;
-        if (!Objects.equals(this.codigo, other.codigo)) {
+        if (!Objects.equals(this.codigoVuelo, other.codigoVuelo)) {
             return false;
         }
         return true;
@@ -138,6 +139,6 @@ public class Vuelo {
 
 
     public int compareTo(Vuelo v) {
-        return this.codigo.compareTo(v.codigo);
+        return this.codigoVuelo.compareTo(v.codigoVuelo);
     }
 }
