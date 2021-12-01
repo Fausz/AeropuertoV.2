@@ -1,5 +1,8 @@
 package CONTROLADOR;
 
+import DAO.DAOException;
+import SERVICIOS.ServiciosException;
+import SERVICIOS.ServiciosReservas;
 import VISTAS.VistasReservas;
 
 public class ControladorReservas {
@@ -31,6 +34,7 @@ public class ControladorReservas {
                     break;
                 case 2:
                     System.out.println("--Ver Reservas--");
+                    this.mostrarReservas();
                     break;
                 case 3:
                     System.out.println("--Ver Reservas de un Vuelo--");
@@ -43,5 +47,15 @@ public class ControladorReservas {
                     break;
             }
         }while(true);
+    }
+
+    private void mostrarReservas(){
+        try {
+            VistasReservas.getVistas().mostrarReservas(ServiciosReservas.getServicio().obtenerReservas());
+        }catch (DAOException DAO){
+            VistasReservas.mostrarError("Error al intentar obtener las reservas "+DAO);
+        }catch (ServiciosException se){
+            VistasReservas.mostrarError("Error al intentar mostrar las reservas "+se);
+        }
     }
 }
