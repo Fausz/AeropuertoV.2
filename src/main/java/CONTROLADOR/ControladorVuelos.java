@@ -27,18 +27,19 @@ public class ControladorVuelos {
                     System.out.println("Cancelar Menu de Vuelos.");
                     return;
                 case 1:
-                    System.out.println("Crear Vuelo");
+                    System.out.println("--Crear Vuelo--");
                     this.crearVuelo();
                     break;
                 case 2:
+                    System.out.println("--Mostrar Vuelos--");
                     this.mostrarVuelos();
                     break;
                 case 3:
-                    System.out.println("Modificar Vuelo");
+                    System.out.println("--Modificar Vuelo--");
                     this.modificarVuelo();
                     break;
                 case 4:
-                    System.out.println("Eliminar Vuelo");
+                    System.out.println("--Eliminar Vuelo--");
                     this.eliminarVuelo();
                     break;
                 case 5:
