@@ -24,7 +24,7 @@ public class VistaVuelos {
     public int mostrarMenuPrincipalVuelos(){
         int opcion=-1;
         do {
-            System.out.println("\n----Menu Vuelos-----");
+            System.out.println("\n----MENU VUELOS-----");
             System.out.println("1. Crear Vuelo");
             System.out.println("2. Mostrar Vuelos");
             System.out.println("3. Modificar Vuelo");

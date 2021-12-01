@@ -68,6 +68,7 @@ public class ControladorPrincipal {
                     break;
                 case 2:
                     System.out.println("Gestionar Reservas");
+                    ControladorReservas.getControladorReservas().menuControladorReservas();
                     break;
                 case 3:
                     System.out.println("Gestionar Informes");
