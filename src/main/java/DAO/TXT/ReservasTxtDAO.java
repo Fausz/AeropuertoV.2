@@ -1,15 +1,32 @@
 package DAO.TXT;
 
-import CLASES.OrdenPago;
-import CLASES.Reserva;
-import CLASES.TarjetaEmbarque;
+import CLASES.*;
 import DAO.DAOException;
 import DAO.IReservasDAO;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.StringReader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ReservasTxtDAO implements IReservasDAO {
+
+    private String archivoReservas = null;
+    private String archivoPasajeros = null;
+    private String archivoTarjetasEmbarque = null;
+    private String archivoOrdenesPago = null;
+
+    public ReservasTxtDAO() throws DAOException {
+        Configuracion configuracion = new Configuracion("/configuracion.properties");
+        this.archivoReservas = configuracion.getTxtReservas();
+        this.archivoPasajeros = configuracion.getTxtPasajeros();
+        //this.archivoTarjetasEmbarque = configuracion.getTxtTarjetasEmbarque();
+        //this.archivoOrdenesPago = configuracion.getTxtOrdenesPago();
+
+    }
     @Override
     public void crearReserva(Reserva r) throws DAOException {
 
@@ -57,7 +74,7 @@ public class ReservasTxtDAO implements IReservasDAO {
 
     @Override
     public List<Reserva> obtenerTodasReservas() throws DAOException {
-        return null;
+        return this.sacarReservasTxt();
     }
 
     @Override
@@ -93,5 +110,38 @@ public class ReservasTxtDAO implements IReservasDAO {
     @Override
     public List<Reserva> obtenerReservasCanceladas(String codVuelo) throws DAOException {
         return null;
+    }
+    private List<Reserva> sacarReservasTxt() throws DAOException {
+        List<Reserva> reservas = new ArrayList<>();
+        try (BufferedReader brR = new BufferedReader(new FileReader(archivoReservas))){
+            String linea;
+            //Mintras encuentre una linea no vacia leera el bloque
+            while ((linea = brR.readLine()) != null) {
+                String [] datosReserva = linea.split("#");
+                int id = Integer.parseInt(datosReserva[0]);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaReserva = sdf.parse(datosReserva[1]);
+
+                boolean cancelada = Boolean.parseBoolean(datosReserva[2]);
+
+                String codigoVuelo = datosReserva[3];
+                VuelosTxtDAO daoVuelo = new VuelosTxtDAO();
+                Vuelo v = daoVuelo.obtenerVuelo(codigoVuelo);
+
+                double importe = Double.parseDouble(datosReserva[4]);
+
+                List<Pasajero>pasajeros = new ArrayList<>();
+                try(BufferedReader brP = new BufferedReader(new FileReader(archivoPasajeros))){
+
+                }catch (Exception e){
+                    throw new DAOException("Ha habido un problema al obtener los pasajeros desde el archivo de texto: "+e.getMessage(),e);
+                }
+            }
+
+            return reservas;
+        }catch (Exception e){
+            throw new DAOException("Ha habido un problema al obtener las reservas desde el archivo de texto:" + e.getMessage(), e);
+        }
     }
 }

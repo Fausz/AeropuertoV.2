@@ -1,10 +1,13 @@
 package SERVICIOS;
 
+import CLASES.Reserva;
 import DAO.DAOException;
 import DAO.IReservasDAO;
 import DAO.IVuelosDAO;
 import DAO.TXT.ReservasTxtDAO;
 import DAO.TXT.VuelosTxtDAO;
+
+import java.util.List;
 
 public class ServiciosReservas {
     //Aqui guardaremos la instancia del tipo de almacenamiento que se haya elegido para poder usar ese tipo en concreto
@@ -63,5 +66,15 @@ public class ServiciosReservas {
 
         }*/
 
+    }
+
+    public List<Reserva> obtenerReservas() throws ServiciosException, DAOException {
+
+            List<Reserva> reservas = dao.obtenerTodasReservas();
+
+            if(reservas.isEmpty()){
+                throw new ServiciosException("No hay ninguna reserva");
+            }
+        return reservas;
     }
 }

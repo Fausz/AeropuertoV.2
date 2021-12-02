@@ -31,7 +31,7 @@ public class Configuracion {
     public String getTxtVuelos(){
         return propiedades.getProperty("txtVuelos");
     }
-    /*
+
     public String getTxtReservas(){
         return propiedades.getProperty("txtReservas");
     }
@@ -39,7 +39,7 @@ public class Configuracion {
     public String getTxtPasajeros(){
         return propiedades.getProperty("txtPasajeros");
     }
-
+/*
     public String getTxtTarjetasEmbarque() {
         return propiedades.getProperty("txtTarjetasEmbarque");
     }
